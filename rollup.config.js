@@ -1,6 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 const extensions = ['.ts', '.js'];
 
@@ -14,10 +15,11 @@ export default {
     },
     external: ['vscode'],
     plugins: [
-        typescript({outDir: 'dist/web'}),
         nodeResolve({
             extensions
         }),
+        nodePolyfills( {include: extensions}),
+        typescript({outDir: 'dist/web'}),
         commonjs({})
     ]
 };
